@@ -172,22 +172,9 @@
   const scenes = $$('[data-section]');
   const nameFirst = $('.name-part--first'), nameLast = $('.name-part--last');
   const heroSides = $$('.hero__side');
-  const scrubEl = $('.scrub');
   const tlWrap = $('.timeline'), tlLine = $('.timeline__line span');
   let lastY = scrollY, activeIdx = -1, ticking = false;
 
-  let words = [];
-  if (scrubEl) {
-    const text = scrubEl.textContent.trim();
-    scrubEl.textContent = '';
-    text.split(/\s+/).forEach((w, i, arr) => {
-      const s = document.createElement('span');
-      s.className = 'w';
-      s.textContent = w;
-      scrubEl.append(s, i < arr.length - 1 ? ' ' : '');
-    });
-    words = $$('.w', scrubEl);
-  }
 
   function setActive(i) {
     const sec = scenes[i];
@@ -223,14 +210,6 @@
         if (r.bottom < -200 || r.top > vh + 200) return;
         g.style.transform = `translate3d(0, ${r.top * 0.32}px, 0)`;
       });
-    }
-
-    if (scrubEl && !reduced) {
-      const r = scrubEl.getBoundingClientRect();
-      const start = vh * 0.85, end = vh * 0.35;
-      const p = clamp((start - r.top) / (start - end + r.height * 0.6), 0, 1);
-      const n = Math.round(p * words.length);
-      words.forEach((w, i) => w.classList.toggle('on', i < n));
     }
 
     if (tlWrap) {
@@ -462,7 +441,7 @@
     err.textContent = '';
     const subject = `Portfolio enquiry from ${name}${org ? ' (' + org + ')' : ''}`;
     const body = `${msg}\n\n— ${name}${org ? ', ' + org : ''}`;
-    location.href = `mailto:aparajitashadangi356@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    location.href = `mailto:aparajitashadangi@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     showToast('Opening your email app…');
   });
 
